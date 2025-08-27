@@ -389,36 +389,6 @@ function FlowBig({ d, activeStep, showAll }: { d: any; activeStep: StepKey; show
 }
 
 // ---------- UI helpers ----------
-function FinancialRow({ label, value, input, color, emphasis = false, style, negative = false, total = false }:
-  { label: string; value?: string; input?: React.ReactNode; color?: string; emphasis?: boolean; style?: React.CSSProperties; negative?: boolean; total?: boolean }) {
-  return (
-    <div className={`flex items-center justify-between gap-4 py-2 ${total ? 'border-t border-slate-300 pt-3' : ''}`} style={style}>
-      <span className={`text-sm ${emphasis ? "font-bold" : "font-medium"} ${negative ? "pl-4" : ""}`}>
-        {negative && "− "}{label}
-      </span>
-      <div className="flex-1 border-b border-dotted border-slate-300 mx-3"></div>
-      {value && <span className={`font-mono text-sm min-w-[80px] text-right ${emphasis ? "font-bold" : ""}`} style={{ color }}>{value}</span>}
-      {input && <div className="min-w-[120px]">{input}</div>}
-    </div>
-  );
-}
-
-function BSRow({ label }: { label: string }) { 
-  return <div className="font-medium text-sm text-slate-700 py-1">{label}</div>; 
-}
-
-function KeyVal({ label, value, input, color, emphasis = false, style }:
-  { label: string; value?: string; input?: React.ReactNode; color?: string; emphasis?: boolean; style?: React.CSSProperties }) {
-  return (
-    <div className="flex items-center justify-between gap-4 py-1" style={style}>
-      <span className={`text-[15px] ${emphasis ? "font-semibold" : ""}`}>{label}</span>
-      <div className="flex-1" />
-      {value && <span className="font-mono text-[15px]" style={{ color }}>{value}</span>}
-      {input}
-    </div>
-  );
-}
-
 function CompactRow({ label, value, input, color, emphasis = false, style }:
   { label: string; value?: string; input?: React.ReactNode; color?: string; emphasis?: boolean; style?: React.CSSProperties }) {
   return (
@@ -434,8 +404,3 @@ function CompactRow({ label, value, input, color, emphasis = false, style }:
 function CompactInput({ value, onChange, style }: { value: any; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; style?: React.CSSProperties }) { 
   return <input type="number" step="any" value={value} onChange={onChange} style={style} className="w-full rounded border border-slate-300 px-2 py-1 text-right font-mono text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-200 transition-colors" />; 
 }
-
-function SectionRow({ label }: { label: string }) { return (<div className="col-span-3 text-[11px] uppercase tracking-[0.12em] text-slate-500 mt-4 mb-1">{label}</div>); }
-function LabelCell({ text }: { text: string }) { return <div>{text}</div>; }
-function NumInput({ value, onChange, style }: { value: any; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; style?: React.CSSProperties }) { return <input type="number" step="any" value={value} onChange={onChange} style={style} className="w-full rounded-lg border border-slate-300 px-3 py-2 text-right font-mono text-[14px] focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-colors" />; }
-function Formula({ children, color }: { children: React.ReactNode; color: string }) { return <div className="col-span-3 text-right text-[12px] italic" style={{ color }}>{children}</div>; }
