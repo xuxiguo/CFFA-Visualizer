@@ -200,58 +200,115 @@ export default function App() {
         </section>
 
         {/* Statements: IS left, BS right */}
-        <section className="bg-white shadow rounded-2xl p-5 mb-6">
-          <h2 className="font-semibold text-lg mb-4">Income Statement (current) & Balance Sheet (two years)</h2>
-          <div className="grid xl:grid-cols-2 gap-6">
+        <section className="bg-white shadow rounded-2xl p-6 mb-6">
+          <h2 className="font-semibold text-xl mb-6 text-center text-slate-800">Financial Statements</h2>
+          <div className="grid xl:grid-cols-2 gap-8">
             {/* Income Statement */}
-            <div className="rounded-2xl border border-slate-200 p-4">
-              <h3 className="font-semibold text-[15px] mb-3">Income Statement</h3>
-              <KeyVal label="Revenue" color={C.revenue} input={<NumInput value={values.revenue} onChange={update("revenue")} />} />
-              <KeyVal label="− COGS" color={C.cogs} input={<NumInput value={values.cogs} onChange={update("cogs")} />} />
-              <KeyVal label="− Depreciation" color={C.dep} input={<NumInput value={values.depreciation} onChange={update("depreciation")} style={highlight(["DEP→OCF","NCS→CFFA"])} />} />
-              <KeyVal label="= EBIT" color={C.ebit} value={fmt0(d.EBIT)} emphasis />
-              <KeyVal label="− Interest" color={C.interest} input={<NumInput value={values.interestPaid} onChange={update("interestPaid")} style={highlight(["CFFA→Creditors"])} />} />
-              <KeyVal label="− Taxes" color={C.tax} input={<NumInput value={values.taxes} onChange={update("taxes")} style={highlight(["TAX→OCF"])} />} />
-              <KeyVal label="= Net Income" color={C.netIncome} value={fmt0(d.NetIncome)} emphasis />
-              <KeyVal label="− Dividends" color={C.dividend} input={<NumInput value={values.dividends} onChange={update("dividends")} style={highlight(["CFFA→Stockholders"])} />} />
-              <KeyVal label="= Addition to Retained Earnings" color={C.retained} value={fmt0(d.RetainedAdd)} emphasis />
-              <div className="mt-2 text-xs text-slate-500">OCF = EBIT + Depreciation − Taxes = {fmt0(d.EBIT)} + {fmt0(d.DEP)} − {fmt0(d.Tax)} = <span className="font-mono" style={{color:C.ocf}}>{fmt0(d.OCF)}</span></div>
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border-2 border-blue-200 shadow-sm">
+              <div className="bg-blue-600 text-white px-5 py-3 rounded-t-lg">
+                <h3 className="font-bold text-lg text-center">Income Statement</h3>
+                <p className="text-blue-100 text-sm text-center">For the Year Ended</p>
+              </div>
+              <div className="p-5 space-y-3">
+                <div className="border-b border-blue-200 pb-2">
+                  <FinancialRow label="Revenue" color={C.revenue} input={<NumInput value={values.revenue} onChange={update("revenue")} />} />
+                </div>
+                
+                <div className="space-y-2">
+                  <FinancialRow label="Cost of Goods Sold" color={C.cogs} input={<NumInput value={values.cogs} onChange={update("cogs")} />} negative />
+                  <FinancialRow label="Depreciation Expense" color={C.dep} input={<NumInput value={values.depreciation} onChange={update("depreciation")} style={highlight(["DEP→OCF","NCS→CFFA"])} />} negative />
+                </div>
+                
+                <div className="border-t-2 border-blue-300 pt-2">
+                  <FinancialRow label="Earnings Before Interest & Taxes (EBIT)" color={C.ebit} value={fmt0(d.EBIT)} emphasis total />
+                </div>
+                
+                <div className="space-y-2 mt-4">
+                  <FinancialRow label="Interest Expense" color={C.interest} input={<NumInput value={values.interestPaid} onChange={update("interestPaid")} style={highlight(["CFFA→Creditors"])} />} negative />
+                  <FinancialRow label="Income Tax Expense" color={C.tax} input={<NumInput value={values.taxes} onChange={update("taxes")} style={highlight(["TAX→OCF"])} />} negative />
+                </div>
+                
+                <div className="border-t-2 border-blue-400 pt-2 bg-blue-100 rounded px-3 py-2 -mx-1">
+                  <FinancialRow label="Net Income" color={C.netIncome} value={fmt0(d.NetIncome)} emphasis total />
+                </div>
+                
+                <div className="mt-4 space-y-2 border-t border-slate-300 pt-3">
+                  <FinancialRow label="Dividends Paid" color={C.dividend} input={<NumInput value={values.dividends} onChange={update("dividends")} style={highlight(["CFFA→Stockholders"])} />} negative />
+                  <FinancialRow label="Addition to Retained Earnings" color={C.retained} value={fmt0(d.RetainedAdd)} emphasis />
+                </div>
+                
+                <div className="mt-4 p-3 bg-cyan-50 rounded border border-cyan-200">
+                  <div className="text-xs font-semibold text-cyan-800 mb-1">Operating Cash Flow Calculation:</div>
+                  <div className="text-xs text-cyan-700 font-mono">
+                    OCF = EBIT + Depreciation − Taxes<br/>
+                    OCF = {fmt0(d.EBIT)} + {fmt0(d.DEP)} − {fmt0(d.Tax)} = <span className="font-bold" style={{color:C.ocf}}>{fmt0(d.OCF)}</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Balance Sheet */}
-            <div className="rounded-2xl border border-slate-200 p-4">
-              <div className="flex items-baseline justify-between mb-3">
-                <h3 className="font-semibold text-[15px]">Balance Sheet (Two Years)</h3>
-                <span className="text-xs text-slate-500">Amounts</span>
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border-2 border-green-200 shadow-sm">
+              <div className="bg-green-600 text-white px-5 py-3 rounded-t-lg">
+                <h3 className="font-bold text-lg text-center">Balance Sheet</h3>
+                <p className="text-green-100 text-sm text-center">Comparative Two Years</p>
               </div>
-              <div className="grid grid-cols-[1.4fr,170px,170px] gap-x-3 text-[14px] items-center">
-                <div></div>
-                <div className="text-center text-slate-500">Year 1</div>
-                <div className="text-center text-slate-500">Year 2</div>
+              <div className="p-5">
+                <div className="grid grid-cols-[2fr,1fr,1fr] gap-3 text-sm">
+                  <div className="font-semibold text-green-800"></div>
+                  <div className="text-center font-semibold text-green-700 border-b border-green-300 pb-1">Year 1</div>
+                  <div className="text-center font-semibold text-green-700 border-b border-green-300 pb-1">Year 2</div>
 
-                <SectionRow label="ASSETS" />
-                <LabelCell text="Current assets (CA)" />
-                <NumInput value={values.begCA} onChange={update("begCA")} style={highlight(["ΔNWC→CFFA"])} />
-                <NumInput value={values.endCA} onChange={update("endCA")} style={highlight(["ΔNWC→CFFA"])} />
+                  {/* Assets Section */}
+                  <div className="col-span-3 mt-4">
+                    <div className="bg-green-600 text-white px-3 py-2 rounded font-bold text-center">ASSETS</div>
+                  </div>
+                  
+                  <BSRow label="Current Assets" />
+                  <NumInput value={values.begCA} onChange={update("begCA")} style={highlight(["ΔNWC→CFFA"])} />
+                  <NumInput value={values.endCA} onChange={update("endCA")} style={highlight(["ΔNWC→CFFA"])} />
 
-                <LabelCell text="Net plant & equipment (Net PPE)" />
-                <NumInput value={values.begNetPPE} onChange={update("begNetPPE")} style={highlight(["NCS→CFFA"])} />
-                <NumInput value={values.endNetPPE} onChange={update("endNetPPE")} style={highlight(["NCS→CFFA"])} />
-                <Formula color={C.ncs}>{`NCS = Y2 − Y1 + Dep = ${fmt0(num(values.endNetPPE))} − ${fmt0(num(values.begNetPPE))} + ${fmt0(num(values.depreciation))} = ${fmt0(d.NCS)}`}</Formula>
+                  <BSRow label="Net Plant & Equipment" />
+                  <NumInput value={values.begNetPPE} onChange={update("begNetPPE")} style={highlight(["NCS→CFFA"])} />
+                  <NumInput value={values.endNetPPE} onChange={update("endNetPPE")} style={highlight(["NCS→CFFA"])} />
+                  
+                  <div className="col-span-3 mb-3">
+                    <div className="p-2 bg-orange-50 rounded border border-orange-200 mt-2">
+                      <div className="text-xs font-semibold text-orange-800">Net Capital Spending (NCS):</div>
+                      <div className="text-xs text-orange-700 font-mono">
+                        NCS = Y2 − Y1 + Depreciation = {fmt0(num(values.endNetPPE))} − {fmt0(num(values.begNetPPE))} + {fmt0(num(values.depreciation))} = <span className="font-bold" style={{color:C.ncs}}>{fmt0(d.NCS)}</span>
+                      </div>
+                    </div>
+                  </div>
 
-                <SectionRow label="LIABILITIES & OWNERS' EQUITY" />
-                <LabelCell text="Current liabilities (CL)" />
-                <NumInput value={values.begCL} onChange={update("begCL")} style={highlight(["ΔNWC→CFFA"])} />
-                <NumInput value={values.endCL} onChange={update("endCL")} style={highlight(["ΔNWC→CFFA"])} />
-                <Formula color={C.dnwc}>{`ΔNWC = (Y2 CA − Y2 CL) − (Y1 CA − Y1 CL) = (${fmt0(num(values.endCA))} − ${fmt0(num(values.endCL))}) − (${fmt0(num(values.begCA))} − ${fmt0(num(values.begCL))}) = ${fmt0(d.dNWC)}`}</Formula>
+                  {/* Liabilities & Equity Section */}
+                  <div className="col-span-3 mt-2">
+                    <div className="bg-green-600 text-white px-3 py-2 rounded font-bold text-center">LIABILITIES & OWNERS' EQUITY</div>
+                  </div>
+                  
+                  <BSRow label="Current Liabilities" />
+                  <NumInput value={values.begCL} onChange={update("begCL")} style={highlight(["ΔNWC→CFFA"])} />
+                  <NumInput value={values.endCL} onChange={update("endCL")} style={highlight(["ΔNWC→CFFA"])} />
+                  
+                  <div className="col-span-3 mb-3">
+                    <div className="p-2 bg-blue-50 rounded border border-blue-200 mt-2">
+                      <div className="text-xs font-semibold text-blue-800">Change in Net Working Capital (ΔNWC):</div>
+                      <div className="text-xs text-blue-700 font-mono">
+                        ΔNWC = (Y2 CA − Y2 CL) − (Y1 CA − Y1 CL)<br/>
+                        = ({fmt0(num(values.endCA))} − {fmt0(num(values.endCL))}) − ({fmt0(num(values.begCA))} − {fmt0(num(values.begCL))})<br/>
+                        = <span className="font-bold" style={{color:C.dnwc}}>{fmt0(d.dNWC)}</span>
+                      </div>
+                    </div>
+                  </div>
 
-                <LabelCell text="Long‑term debt" />
-                <NumInput value={values.begLTD} onChange={update("begLTD")} style={highlight(["CFFA→Creditors"])} />
-                <NumInput value={values.endLTD} onChange={update("endLTD")} style={highlight(["CFFA→Creditors"])} />
+                  <BSRow label="Long-term Debt" />
+                  <NumInput value={values.begLTD} onChange={update("begLTD")} style={highlight(["CFFA→Creditors"])} />
+                  <NumInput value={values.endLTD} onChange={update("endLTD")} style={highlight(["CFFA→Creditors"])} />
 
-                <LabelCell text="Common stock + APIC" />
-                <NumInput value={values.begCSAPIC} onChange={update("begCSAPIC")} style={highlight(["CFFA→Stockholders"])} />
-                <NumInput value={values.endCSAPIC} onChange={update("endCSAPIC")} style={highlight(["CFFA→Stockholders"])} />
+                  <BSRow label="Common Stock + APIC" />
+                  <NumInput value={values.begCSAPIC} onChange={update("begCSAPIC")} style={highlight(["CFFA→Stockholders"])} />
+                  <NumInput value={values.endCSAPIC} onChange={update("endCSAPIC")} style={highlight(["CFFA→Stockholders"])} />
+                </div>
               </div>
             </div>
           </div>
@@ -365,6 +422,24 @@ function FlowBig({ d, activeStep, showAll }: { d: any; activeStep: StepKey; show
 }
 
 // ---------- UI helpers ----------
+function FinancialRow({ label, value, input, color, emphasis = false, style, negative = false, total = false }:
+  { label: string; value?: string; input?: React.ReactNode; color?: string; emphasis?: boolean; style?: React.CSSProperties; negative?: boolean; total?: boolean }) {
+  return (
+    <div className={`flex items-center justify-between gap-4 py-2 ${total ? 'border-t border-slate-300 pt-3' : ''}`} style={style}>
+      <span className={`text-sm ${emphasis ? "font-bold" : "font-medium"} ${negative ? "pl-4" : ""}`}>
+        {negative && "− "}{label}
+      </span>
+      <div className="flex-1 border-b border-dotted border-slate-300 mx-3"></div>
+      {value && <span className={`font-mono text-sm min-w-[80px] text-right ${emphasis ? "font-bold" : ""}`} style={{ color }}>{value}</span>}
+      {input && <div className="min-w-[120px]">{input}</div>}
+    </div>
+  );
+}
+
+function BSRow({ label }: { label: string }) { 
+  return <div className="font-medium text-sm text-slate-700 py-1">{label}</div>; 
+}
+
 function KeyVal({ label, value, input, color, emphasis = false, style }:
   { label: string; value?: string; input?: React.ReactNode; color?: string; emphasis?: boolean; style?: React.CSSProperties }) {
   return (
@@ -378,5 +453,5 @@ function KeyVal({ label, value, input, color, emphasis = false, style }:
 }
 function SectionRow({ label }: { label: string }) { return (<div className="col-span-3 text-[11px] uppercase tracking-[0.12em] text-slate-500 mt-4 mb-1">{label}</div>); }
 function LabelCell({ text }: { text: string }) { return <div>{text}</div>; }
-function NumInput({ value, onChange, style }: { value: any; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; style?: React.CSSProperties }) { return <input type="number" step="any" value={value} onChange={onChange} style={style} className="w-full rounded-lg border border-slate-300 px-3 py-2 text-right font-mono text-[14px]" />; }
+function NumInput({ value, onChange, style }: { value: any; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; style?: React.CSSProperties }) { return <input type="number" step="any" value={value} onChange={onChange} style={style} className="w-full rounded-lg border border-slate-300 px-3 py-2 text-right font-mono text-[14px] focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-colors" />; }
 function Formula({ children, color }: { children: React.ReactNode; color: string }) { return <div className="col-span-3 text-right text-[12px] italic" style={{ color }}>{children}</div>; }
