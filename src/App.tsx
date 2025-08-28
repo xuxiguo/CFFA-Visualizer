@@ -239,61 +239,67 @@ export default function App() {
                 <h3 className="font-bold text-xs text-center">Balance Sheet</h3>
               </div>
               <div className="p-2">
-                <div className="space-y-1">
-                  {/* Column Headers */}
-                  <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 text-xs font-semibold border-b border-green-200 pb-1">
-                    <div className="text-left"></div>
-                    <div className="text-center text-green-700">Year 1</div>
-                    <div className="text-center text-green-700">Year 2</div>
-                  </div>
-
-                  <div className="text-xs font-bold text-green-800 mt-2 mb-1">ASSETS</div>
-                  
-                  {/* Current Assets Row */}
-                  <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
-                    <div className="text-xs text-left">Current Assets</div>
-                    <div className="text-center"><CompactInput value={values.begCA} onChange={update("begCA")} style={highlight(["ΔNWC→CFFA"])} /></div>
-                    <div className="text-center"><CompactInput value={values.endCA} onChange={update("endCA")} style={highlight(["ΔNWC→CFFA"])} /></div>
-                  </div>
-
-                  {/* Net PPE Row */}
-                  <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
-                    <div className="text-xs text-left">Net PPE</div>
-                    <div className="text-center"><CompactInput value={values.begNetPPE} onChange={update("begNetPPE")} style={highlight(["NCS→CFFA"])} /></div>
-                    <div className="text-center"><CompactInput value={values.endNetPPE} onChange={update("endNetPPE")} style={highlight(["NCS→CFFA"])} /></div>
-                  </div>
-                  
-                  <div className="p-1 bg-orange-50 rounded border border-orange-200 mt-1 text-xs">
-                    <div className="font-semibold text-orange-800 text-xs">NCS = {fmt0(num(values.endNetPPE))} − {fmt0(num(values.begNetPPE))} + {fmt0(num(values.depreciation))} = <span style={{color:C.ncs}}>{fmt0(d.NCS)}</span></div>
-                  </div>
-
-                  <div className="text-xs font-bold text-green-800 mt-3 mb-1">LIABILITIES & EQUITY</div>
-                  
-                  {/* Current Liabilities Row */}
-                  <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
-                    <div className="text-xs text-left">Current Liabilities</div>
-                    <div className="text-center"><CompactInput value={values.begCL} onChange={update("begCL")} style={highlight(["ΔNWC→CFFA"])} /></div>
-                    <div className="text-center"><CompactInput value={values.endCL} onChange={update("endCL")} style={highlight(["ΔNWC→CFFA"])} /></div>
-                  </div>
-                  
-                  <div className="p-1 bg-blue-50 rounded border border-blue-200 mt-1 text-xs">
-                    <div className="font-semibold text-blue-800 text-xs">ΔNWC = ({fmt0(num(values.endCA))} − {fmt0(num(values.endCL))}) − ({fmt0(num(values.begCA))} − {fmt0(num(values.begCL))}) = <span style={{color:C.dnwc}}>{fmt0(d.dNWC)}</span></div>
-                  </div>
-
-                  {/* Long-term Debt Row */}
-                  <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
-                    <div className="text-xs text-left">Long-term Debt</div>
-                    <div className="text-center"><CompactInput value={values.begLTD} onChange={update("begLTD")} style={highlight(["CFFA→Creditors"])} /></div>
-                    <div className="text-center"><CompactInput value={values.endLTD} onChange={update("endLTD")} style={highlight(["CFFA→Creditors"])} /></div>
-                  </div>
-
-                  {/* Common Stock Row */}
-                  <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
-                    <div className="text-xs text-left">Common Stock + APIC</div>
-                    <div className="text-center"><CompactInput value={values.begCSAPIC} onChange={update("begCSAPIC")} style={highlight(["CFFA→Stockholders"])} /></div>
-                    <div className="text-center"><CompactInput value={values.endCSAPIC} onChange={update("endCSAPIC")} style={highlight(["CFFA→Stockholders"])} /></div>
-                  </div>
+                {/* Balance Sheet Table */}
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="border-b border-green-200">
+                      <th className="text-left py-1"></th>
+                      <th className="text-center py-1 text-green-700">Year 1</th>
+                      <th className="text-center py-1 text-green-700">Year 2</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td colSpan={3} className="font-bold text-green-800 py-1">ASSETS</td></tr>
+                    
+                    <tr>
+                      <td className="text-left py-1">Current Assets</td>
+                      <td className="text-center py-1"><CompactInput value={values.begCA} onChange={update("begCA")} style={highlight(["ΔNWC→CFFA"])} /></td>
+                      <td className="text-center py-1"><CompactInput value={values.endCA} onChange={update("endCA")} style={highlight(["ΔNWC→CFFA"])} /></td>
+                    </tr>
+                    
+                    <tr>
+                      <td className="text-left py-1">Net PPE</td>
+                      <td className="text-center py-1"><CompactInput value={values.begNetPPE} onChange={update("begNetPPE")} style={highlight(["NCS→CFFA"])} /></td>
+                      <td className="text-center py-1"><CompactInput value={values.endNetPPE} onChange={update("endNetPPE")} style={highlight(["NCS→CFFA"])} /></td>
+                    </tr>
+                  </tbody>
+                </table>
+                
+                <div className="p-1 bg-orange-50 rounded border border-orange-200 mt-1 text-xs">
+                  <div className="font-semibold text-orange-800 text-xs">NCS = {fmt0(num(values.endNetPPE))} − {fmt0(num(values.begNetPPE))} + {fmt0(num(values.depreciation))} = <span style={{color:C.ncs}}>{fmt0(d.NCS)}</span></div>
                 </div>
+
+                <table className="w-full text-xs mt-2">
+                  <tbody>
+                    <tr><td colSpan={3} className="font-bold text-green-800 py-1">LIABILITIES & EQUITY</td></tr>
+                    
+                    <tr>
+                      <td className="text-left py-1">Current Liabilities</td>
+                      <td className="text-center py-1"><CompactInput value={values.begCL} onChange={update("begCL")} style={highlight(["ΔNWC→CFFA"])} /></td>
+                      <td className="text-center py-1"><CompactInput value={values.endCL} onChange={update("endCL")} style={highlight(["ΔNWC→CFFA"])} /></td>
+                    </tr>
+                  </tbody>
+                </table>
+                
+                <div className="p-1 bg-blue-50 rounded border border-blue-200 mt-1 text-xs">
+                  <div className="font-semibold text-blue-800 text-xs">ΔNWC = ({fmt0(num(values.endCA))} − {fmt0(num(values.endCL))}) − ({fmt0(num(values.begCA))} − {fmt0(num(values.begCL))}) = <span style={{color:C.dnwc}}>{fmt0(d.dNWC)}</span></div>
+                </div>
+
+                <table className="w-full text-xs">
+                  <tbody>
+                    <tr>
+                      <td className="text-left py-1">Long-term Debt</td>
+                      <td className="text-center py-1"><CompactInput value={values.begLTD} onChange={update("begLTD")} style={highlight(["CFFA→Creditors"])} /></td>
+                      <td className="text-center py-1"><CompactInput value={values.endLTD} onChange={update("endLTD")} style={highlight(["CFFA→Creditors"])} /></td>
+                    </tr>
+                    
+                    <tr>
+                      <td className="text-left py-1">Common Stock + APIC</td>
+                      <td className="text-center py-1"><CompactInput value={values.begCSAPIC} onChange={update("begCSAPIC")} style={highlight(["CFFA→Stockholders"])} /></td>
+                      <td className="text-center py-1"><CompactInput value={values.endCSAPIC} onChange={update("endCSAPIC")} style={highlight(["CFFA→Stockholders"])} /></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -419,5 +425,5 @@ function CompactRow({ label, value, input, color, emphasis = false, style }:
 }
 
 function CompactInput({ value, onChange, style }: { value: any; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; style?: React.CSSProperties }) { 
-  return <input type="number" step="any" value={value} onChange={onChange} style={style} className="w-[45px] rounded border border-slate-300 px-1 py-0.5 text-right font-mono text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-200 transition-colors bg-white" />; 
+  return <input type="number" step="any" value={value} onChange={onChange} style={style} className="w-[35px] rounded border border-slate-300 px-1 py-0.5 text-right font-mono text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-200 transition-colors bg-white" />; 
 }
