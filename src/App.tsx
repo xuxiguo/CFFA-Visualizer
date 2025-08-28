@@ -240,24 +240,27 @@ export default function App() {
               </div>
               <div className="p-2">
                 <div className="space-y-1">
+                  {/* Column Headers */}
                   <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 text-xs font-semibold border-b border-green-200 pb-1">
-                    <div></div>
+                    <div className="text-left"></div>
                     <div className="text-center text-green-700">Year 1</div>
                     <div className="text-center text-green-700">Year 2</div>
                   </div>
 
                   <div className="text-xs font-bold text-green-800 mt-2 mb-1">ASSETS</div>
                   
+                  {/* Current Assets Row */}
                   <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
-                    <div className="text-xs">Current Assets</div>
-                    <div className="text-right"><CompactInput value={values.begCA} onChange={update("begCA")} style={highlight(["ΔNWC→CFFA"])} /></div>
-                    <div className="text-right"><CompactInput value={values.endCA} onChange={update("endCA")} style={highlight(["ΔNWC→CFFA"])} /></div>
+                    <div className="text-xs text-left">Current Assets</div>
+                    <div className="text-center"><CompactInput value={values.begCA} onChange={update("begCA")} style={highlight(["ΔNWC→CFFA"])} /></div>
+                    <div className="text-center"><CompactInput value={values.endCA} onChange={update("endCA")} style={highlight(["ΔNWC→CFFA"])} /></div>
                   </div>
 
+                  {/* Net PPE Row */}
                   <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
-                    <div className="text-xs">Net PPE</div>
-                    <div className="text-right"><CompactInput value={values.begNetPPE} onChange={update("begNetPPE")} style={highlight(["NCS→CFFA"])} /></div>
-                    <div className="text-right"><CompactInput value={values.endNetPPE} onChange={update("endNetPPE")} style={highlight(["NCS→CFFA"])} /></div>
+                    <div className="text-xs text-left">Net PPE</div>
+                    <div className="text-center"><CompactInput value={values.begNetPPE} onChange={update("begNetPPE")} style={highlight(["NCS→CFFA"])} /></div>
+                    <div className="text-center"><CompactInput value={values.endNetPPE} onChange={update("endNetPPE")} style={highlight(["NCS→CFFA"])} /></div>
                   </div>
                   
                   <div className="p-1 bg-orange-50 rounded border border-orange-200 mt-1 text-xs">
@@ -266,26 +269,29 @@ export default function App() {
 
                   <div className="text-xs font-bold text-green-800 mt-3 mb-1">LIABILITIES & EQUITY</div>
                   
+                  {/* Current Liabilities Row */}
                   <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
-                    <div className="text-xs">Current Liabilities</div>
-                    <div className="text-right"><CompactInput value={values.begCL} onChange={update("begCL")} style={highlight(["ΔNWC→CFFA"])} /></div>
-                    <div className="text-right"><CompactInput value={values.endCL} onChange={update("endCL")} style={highlight(["ΔNWC→CFFA"])} /></div>
+                    <div className="text-xs text-left">Current Liabilities</div>
+                    <div className="text-center"><CompactInput value={values.begCL} onChange={update("begCL")} style={highlight(["ΔNWC→CFFA"])} /></div>
+                    <div className="text-center"><CompactInput value={values.endCL} onChange={update("endCL")} style={highlight(["ΔNWC→CFFA"])} /></div>
                   </div>
                   
                   <div className="p-1 bg-blue-50 rounded border border-blue-200 mt-1 text-xs">
                     <div className="font-semibold text-blue-800 text-xs">ΔNWC = ({fmt0(num(values.endCA))} − {fmt0(num(values.endCL))}) − ({fmt0(num(values.begCA))} − {fmt0(num(values.begCL))}) = <span style={{color:C.dnwc}}>{fmt0(d.dNWC)}</span></div>
                   </div>
 
+                  {/* Long-term Debt Row */}
                   <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
-                    <div className="text-xs">Long-term Debt</div>
-                    <div className="text-right"><CompactInput value={values.begLTD} onChange={update("begLTD")} style={highlight(["CFFA→Creditors"])} /></div>
-                    <div className="text-right"><CompactInput value={values.endLTD} onChange={update("endLTD")} style={highlight(["CFFA→Creditors"])} /></div>
+                    <div className="text-xs text-left">Long-term Debt</div>
+                    <div className="text-center"><CompactInput value={values.begLTD} onChange={update("begLTD")} style={highlight(["CFFA→Creditors"])} /></div>
+                    <div className="text-center"><CompactInput value={values.endLTD} onChange={update("endLTD")} style={highlight(["CFFA→Creditors"])} /></div>
                   </div>
 
+                  {/* Common Stock Row */}
                   <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
-                    <div className="text-xs">Common Stock + APIC</div>
-                    <div className="text-right"><CompactInput value={values.begCSAPIC} onChange={update("begCSAPIC")} style={highlight(["CFFA→Stockholders"])} /></div>
-                    <div className="text-right"><CompactInput value={values.endCSAPIC} onChange={update("endCSAPIC")} style={highlight(["CFFA→Stockholders"])} /></div>
+                    <div className="text-xs text-left">Common Stock + APIC</div>
+                    <div className="text-center"><CompactInput value={values.begCSAPIC} onChange={update("begCSAPIC")} style={highlight(["CFFA→Stockholders"])} /></div>
+                    <div className="text-center"><CompactInput value={values.endCSAPIC} onChange={update("endCSAPIC")} style={highlight(["CFFA→Stockholders"])} /></div>
                   </div>
                 </div>
               </div>
