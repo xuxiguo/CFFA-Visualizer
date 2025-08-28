@@ -239,42 +239,54 @@ export default function App() {
                 <h3 className="font-bold text-xs text-center">Balance Sheet</h3>
               </div>
               <div className="p-2">
-                <div className="grid grid-cols-[2fr,1fr,1fr] gap-1 text-sm">
-                  <div className="font-semibold text-green-800"></div>
-                  <div className="text-center font-semibold text-green-700 text-xs">Year 1</div>
-                  <div className="text-center font-semibold text-green-700 text-xs">Year 2</div>
+                <div className="space-y-1">
+                  <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 text-xs font-semibold border-b border-green-200 pb-1">
+                    <div></div>
+                    <div className="text-center text-green-700">Year 1</div>
+                    <div className="text-center text-green-700">Year 2</div>
+                  </div>
 
-                  <div className="col-span-3 bg-green-600 text-white px-2 py-0.5 rounded text-center text-xs font-bold mt-1">ASSETS</div>
+                  <div className="text-xs font-bold text-green-800 mt-2 mb-1">ASSETS</div>
                   
-                  <div className="text-xs">Current Assets</div>
-                  <CompactInput value={values.begCA} onChange={update("begCA")} style={highlight(["ΔNWC→CFFA"])} />
-                  <CompactInput value={values.endCA} onChange={update("endCA")} style={highlight(["ΔNWC→CFFA"])} />
+                  <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
+                    <div className="text-xs">Current Assets</div>
+                    <div className="text-right"><CompactInput value={values.begCA} onChange={update("begCA")} style={highlight(["ΔNWC→CFFA"])} /></div>
+                    <div className="text-right"><CompactInput value={values.endCA} onChange={update("endCA")} style={highlight(["ΔNWC→CFFA"])} /></div>
+                  </div>
 
-                  <div className="text-xs">Net PPE</div>
-                  <CompactInput value={values.begNetPPE} onChange={update("begNetPPE")} style={highlight(["NCS→CFFA"])} />
-                  <CompactInput value={values.endNetPPE} onChange={update("endNetPPE")} style={highlight(["NCS→CFFA"])} />
+                  <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
+                    <div className="text-xs">Net PPE</div>
+                    <div className="text-right"><CompactInput value={values.begNetPPE} onChange={update("begNetPPE")} style={highlight(["NCS→CFFA"])} /></div>
+                    <div className="text-right"><CompactInput value={values.endNetPPE} onChange={update("endNetPPE")} style={highlight(["NCS→CFFA"])} /></div>
+                  </div>
                   
-                  <div className="col-span-3 p-1 bg-orange-50 rounded border border-orange-200 mt-0.5 text-xs">
+                  <div className="p-1 bg-orange-50 rounded border border-orange-200 mt-1 text-xs">
                     <div className="font-semibold text-orange-800 text-xs">NCS = {fmt0(num(values.endNetPPE))} − {fmt0(num(values.begNetPPE))} + {fmt0(num(values.depreciation))} = <span style={{color:C.ncs}}>{fmt0(d.NCS)}</span></div>
                   </div>
 
-                  <div className="col-span-3 bg-green-600 text-white px-2 py-0.5 rounded text-center text-xs font-bold mt-1">LIABILITIES & EQUITY</div>
+                  <div className="text-xs font-bold text-green-800 mt-3 mb-1">LIABILITIES & EQUITY</div>
                   
-                  <div className="text-xs">Current Liabilities</div>
-                  <CompactInput value={values.begCL} onChange={update("begCL")} style={highlight(["ΔNWC→CFFA"])} />
-                  <CompactInput value={values.endCL} onChange={update("endCL")} style={highlight(["ΔNWC→CFFA"])} />
+                  <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
+                    <div className="text-xs">Current Liabilities</div>
+                    <div className="text-right"><CompactInput value={values.begCL} onChange={update("begCL")} style={highlight(["ΔNWC→CFFA"])} /></div>
+                    <div className="text-right"><CompactInput value={values.endCL} onChange={update("endCL")} style={highlight(["ΔNWC→CFFA"])} /></div>
+                  </div>
                   
-                  <div className="col-span-3 p-1 bg-blue-50 rounded border border-blue-200 mt-0.5 text-xs">
+                  <div className="p-1 bg-blue-50 rounded border border-blue-200 mt-1 text-xs">
                     <div className="font-semibold text-blue-800 text-xs">ΔNWC = ({fmt0(num(values.endCA))} − {fmt0(num(values.endCL))}) − ({fmt0(num(values.begCA))} − {fmt0(num(values.begCL))}) = <span style={{color:C.dnwc}}>{fmt0(d.dNWC)}</span></div>
                   </div>
 
-                  <div className="text-xs">Long-term Debt</div>
-                  <CompactInput value={values.begLTD} onChange={update("begLTD")} style={highlight(["CFFA→Creditors"])} />
-                  <CompactInput value={values.endLTD} onChange={update("endLTD")} style={highlight(["CFFA→Creditors"])} />
+                  <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
+                    <div className="text-xs">Long-term Debt</div>
+                    <div className="text-right"><CompactInput value={values.begLTD} onChange={update("begLTD")} style={highlight(["CFFA→Creditors"])} /></div>
+                    <div className="text-right"><CompactInput value={values.endLTD} onChange={update("endLTD")} style={highlight(["CFFA→Creditors"])} /></div>
+                  </div>
 
-                  <div className="text-xs">Common Stock + APIC</div>
-                  <CompactInput value={values.begCSAPIC} onChange={update("begCSAPIC")} style={highlight(["CFFA→Stockholders"])} />
-                  <CompactInput value={values.endCSAPIC} onChange={update("endCSAPIC")} style={highlight(["CFFA→Stockholders"])} />
+                  <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 items-center">
+                    <div className="text-xs">Common Stock + APIC</div>
+                    <div className="text-right"><CompactInput value={values.begCSAPIC} onChange={update("begCSAPIC")} style={highlight(["CFFA→Stockholders"])} /></div>
+                    <div className="text-right"><CompactInput value={values.endCSAPIC} onChange={update("endCSAPIC")} style={highlight(["CFFA→Stockholders"])} /></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -392,15 +404,14 @@ function FlowBig({ d, activeStep, showAll }: { d: any; activeStep: StepKey; show
 function CompactRow({ label, value, input, color, emphasis = false, style }:
   { label: string; value?: string; input?: React.ReactNode; color?: string; emphasis?: boolean; style?: React.CSSProperties }) {
   return (
-    <div className={`flex items-center justify-between gap-1 py-0.5 ${emphasis ? 'font-semibold' : ''}`} style={style}>
-      <span className={`text-xs ${emphasis ? "font-bold" : ""} truncate`}>{label}</span>
-      <div className="flex-1 border-b border-dotted border-slate-300 mx-1 min-w-[10px]"></div>
-      {value && <span className={`font-mono text-xs min-w-[50px] text-right ${emphasis ? "font-bold" : ""}`} style={{ color }}>{value}</span>}
-      {input && <div className="min-w-[60px]">{input}</div>}
+    <div className={`flex items-center justify-between py-0.5 ${emphasis ? 'font-semibold' : ''}`} style={style}>
+      <span className={`text-xs ${emphasis ? "font-bold" : ""} flex-1 text-left`}>{label}</span>
+      {value && <span className={`font-mono text-xs text-right ${emphasis ? "font-bold" : ""} min-w-[60px]`} style={{ color }}>{value}</span>}
+      {input && <div className="text-right min-w-[50px]">{input}</div>}
     </div>
   );
 }
 
 function CompactInput({ value, onChange, style }: { value: any; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; style?: React.CSSProperties }) { 
-  return <input type="number" step="any" value={value} onChange={onChange} style={style} className="w-full rounded border border-slate-300 px-1 py-0.5 text-right font-mono text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-200 transition-colors" />; 
+  return <input type="number" step="any" value={value} onChange={onChange} style={style} className="w-[45px] rounded border border-slate-300 px-1 py-0.5 text-right font-mono text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-200 transition-colors bg-white" />; 
 }
