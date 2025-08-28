@@ -202,31 +202,31 @@ export default function App() {
         {/* Statements: IS left, BS right */}
         <section className="bg-white shadow rounded-2xl p-4 mb-6">
           <h2 className="font-semibold text-lg mb-4 text-center text-slate-800">Financial Statements</h2>
-          <div className="grid lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Income Statement */}
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200 shadow-sm">
-              <div className="bg-blue-600 text-white px-4 py-2 rounded-t-lg">
-                <h3 className="font-bold text-base text-center">Income Statement</h3>
+              <div className="bg-blue-600 text-white px-3 py-1.5 rounded-t-lg">
+                <h3 className="font-bold text-sm text-center">Income Statement</h3>
               </div>
-              <div className="p-4 space-y-1">
+              <div className="p-3 space-y-0.5">
                 <CompactRow label="Revenue" color={C.revenue} input={<CompactInput value={values.revenue} onChange={update("revenue")} />} />
                 <CompactRow label="− Cost of Goods Sold" color={C.cogs} input={<CompactInput value={values.cogs} onChange={update("cogs")} />} />
                 <CompactRow label="− Depreciation Expense" color={C.dep} input={<CompactInput value={values.depreciation} onChange={update("depreciation")} style={highlight(["DEP→OCF","NCS→CFFA"])} />} />
-                <div className="border-t border-blue-300 pt-1">
+                <div className="border-t border-blue-300 pt-0.5">
                   <CompactRow label="= EBIT" color={C.ebit} value={fmt0(d.EBIT)} emphasis />
                 </div>
                 <CompactRow label="− Interest Expense" color={C.interest} input={<CompactInput value={values.interestPaid} onChange={update("interestPaid")} style={highlight(["CFFA→Creditors"])} />} />
                 <CompactRow label="− Income Tax Expense" color={C.tax} input={<CompactInput value={values.taxes} onChange={update("taxes")} style={highlight(["TAX→OCF"])} />} />
-                <div className="border-t border-blue-400 pt-1 bg-blue-100 rounded px-2 py-1">
+                <div className="border-t border-blue-400 pt-0.5 bg-blue-100 rounded px-2 py-0.5">
                   <CompactRow label="= Net Income" color={C.netIncome} value={fmt0(d.NetIncome)} emphasis />
                 </div>
-                <div className="border-t border-slate-300 pt-1 mt-2">
+                <div className="border-t border-slate-300 pt-0.5 mt-1">
                   <CompactRow label="− Dividends Paid" color={C.dividend} input={<CompactInput value={values.dividends} onChange={update("dividends")} style={highlight(["CFFA→Stockholders"])} />} />
                   <CompactRow label="= Retained Earnings" color={C.retained} value={fmt0(d.RetainedAdd)} emphasis />
                 </div>
-                <div className="mt-2 p-2 bg-cyan-50 rounded border border-cyan-200 text-xs">
+                <div className="mt-1 p-1.5 bg-cyan-50 rounded border border-cyan-200 text-xs">
                   <div className="font-semibold text-cyan-800">OCF Calculation:</div>
-                  <div className="text-cyan-700 font-mono">
+                  <div className="text-cyan-700 font-mono text-xs">
                     {fmt0(d.EBIT)} + {fmt0(d.DEP)} − {fmt0(d.Tax)} = <span className="font-bold" style={{color:C.ocf}}>{fmt0(d.OCF)}</span>
                   </div>
                 </div>
@@ -235,44 +235,44 @@ export default function App() {
 
             {/* Balance Sheet */}
             <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border border-green-200 shadow-sm">
-              <div className="bg-green-600 text-white px-4 py-2 rounded-t-lg">
-                <h3 className="font-bold text-base text-center">Balance Sheet</h3>
+              <div className="bg-green-600 text-white px-3 py-1.5 rounded-t-lg">
+                <h3 className="font-bold text-sm text-center">Balance Sheet</h3>
               </div>
-              <div className="p-4">
-                <div className="grid grid-cols-[2fr,1fr,1fr] gap-2 text-sm">
+              <div className="p-3">
+                <div className="grid grid-cols-[2fr,1fr,1fr] gap-1 text-sm">
                   <div className="font-semibold text-green-800"></div>
                   <div className="text-center font-semibold text-green-700 text-xs">Year 1</div>
                   <div className="text-center font-semibold text-green-700 text-xs">Year 2</div>
 
-                  <div className="col-span-3 bg-green-600 text-white px-2 py-1 rounded text-center text-sm font-bold mt-2">ASSETS</div>
+                  <div className="col-span-3 bg-green-600 text-white px-2 py-0.5 rounded text-center text-xs font-bold mt-1">ASSETS</div>
                   
-                  <div className="text-sm">Current Assets</div>
+                  <div className="text-xs">Current Assets</div>
                   <CompactInput value={values.begCA} onChange={update("begCA")} style={highlight(["ΔNWC→CFFA"])} />
                   <CompactInput value={values.endCA} onChange={update("endCA")} style={highlight(["ΔNWC→CFFA"])} />
 
-                  <div className="text-sm">Net PPE</div>
+                  <div className="text-xs">Net PPE</div>
                   <CompactInput value={values.begNetPPE} onChange={update("begNetPPE")} style={highlight(["NCS→CFFA"])} />
                   <CompactInput value={values.endNetPPE} onChange={update("endNetPPE")} style={highlight(["NCS→CFFA"])} />
                   
-                  <div className="col-span-3 p-2 bg-orange-50 rounded border border-orange-200 mt-1 text-xs">
-                    <div className="font-semibold text-orange-800">NCS = {fmt0(num(values.endNetPPE))} − {fmt0(num(values.begNetPPE))} + {fmt0(num(values.depreciation))} = <span style={{color:C.ncs}}>{fmt0(d.NCS)}</span></div>
+                  <div className="col-span-3 p-1 bg-orange-50 rounded border border-orange-200 mt-0.5 text-xs">
+                    <div className="font-semibold text-orange-800 text-xs">NCS = {fmt0(num(values.endNetPPE))} − {fmt0(num(values.begNetPPE))} + {fmt0(num(values.depreciation))} = <span style={{color:C.ncs}}>{fmt0(d.NCS)}</span></div>
                   </div>
 
-                  <div className="col-span-3 bg-green-600 text-white px-2 py-1 rounded text-center text-sm font-bold mt-2">LIABILITIES & EQUITY</div>
+                  <div className="col-span-3 bg-green-600 text-white px-2 py-0.5 rounded text-center text-xs font-bold mt-1">LIABILITIES & EQUITY</div>
                   
-                  <div className="text-sm">Current Liabilities</div>
+                  <div className="text-xs">Current Liabilities</div>
                   <CompactInput value={values.begCL} onChange={update("begCL")} style={highlight(["ΔNWC→CFFA"])} />
                   <CompactInput value={values.endCL} onChange={update("endCL")} style={highlight(["ΔNWC→CFFA"])} />
                   
-                  <div className="col-span-3 p-2 bg-blue-50 rounded border border-blue-200 mt-1 text-xs">
-                    <div className="font-semibold text-blue-800">ΔNWC = ({fmt0(num(values.endCA))} − {fmt0(num(values.endCL))}) − ({fmt0(num(values.begCA))} − {fmt0(num(values.begCL))}) = <span style={{color:C.dnwc}}>{fmt0(d.dNWC)}</span></div>
+                  <div className="col-span-3 p-1 bg-blue-50 rounded border border-blue-200 mt-0.5 text-xs">
+                    <div className="font-semibold text-blue-800 text-xs">ΔNWC = ({fmt0(num(values.endCA))} − {fmt0(num(values.endCL))}) − ({fmt0(num(values.begCA))} − {fmt0(num(values.begCL))}) = <span style={{color:C.dnwc}}>{fmt0(d.dNWC)}</span></div>
                   </div>
 
-                  <div className="text-sm">Long-term Debt</div>
+                  <div className="text-xs">Long-term Debt</div>
                   <CompactInput value={values.begLTD} onChange={update("begLTD")} style={highlight(["CFFA→Creditors"])} />
                   <CompactInput value={values.endLTD} onChange={update("endLTD")} style={highlight(["CFFA→Creditors"])} />
 
-                  <div className="text-sm">Common Stock + APIC</div>
+                  <div className="text-xs">Common Stock + APIC</div>
                   <CompactInput value={values.begCSAPIC} onChange={update("begCSAPIC")} style={highlight(["CFFA→Stockholders"])} />
                   <CompactInput value={values.endCSAPIC} onChange={update("endCSAPIC")} style={highlight(["CFFA→Stockholders"])} />
                 </div>
@@ -392,15 +392,15 @@ function FlowBig({ d, activeStep, showAll }: { d: any; activeStep: StepKey; show
 function CompactRow({ label, value, input, color, emphasis = false, style }:
   { label: string; value?: string; input?: React.ReactNode; color?: string; emphasis?: boolean; style?: React.CSSProperties }) {
   return (
-    <div className={`flex items-center justify-between gap-2 py-1 ${emphasis ? 'font-semibold' : ''}`} style={style}>
-      <span className={`text-sm ${emphasis ? "font-bold" : ""}`}>{label}</span>
-      <div className="flex-1 border-b border-dotted border-slate-300 mx-2"></div>
-      {value && <span className={`font-mono text-sm min-w-[70px] text-right ${emphasis ? "font-bold" : ""}`} style={{ color }}>{value}</span>}
-      {input && <div className="min-w-[90px]">{input}</div>}
+    <div className={`flex items-center justify-between gap-1 py-0.5 ${emphasis ? 'font-semibold' : ''}`} style={style}>
+      <span className={`text-xs ${emphasis ? "font-bold" : ""}`}>{label}</span>
+      <div className="flex-1 border-b border-dotted border-slate-300 mx-1"></div>
+      {value && <span className={`font-mono text-xs min-w-[60px] text-right ${emphasis ? "font-bold" : ""}`} style={{ color }}>{value}</span>}
+      {input && <div className="min-w-[75px]">{input}</div>}
     </div>
   );
 }
 
 function CompactInput({ value, onChange, style }: { value: any; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; style?: React.CSSProperties }) { 
-  return <input type="number" step="any" value={value} onChange={onChange} style={style} className="w-full rounded border border-slate-300 px-2 py-1 text-right font-mono text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-200 transition-colors" />; 
+  return <input type="number" step="any" value={value} onChange={onChange} style={style} className="w-full rounded border border-slate-300 px-1.5 py-0.5 text-right font-mono text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-200 transition-colors" />; 
 }
