@@ -425,5 +425,5 @@ function CompactRow({ label, value, input, color, emphasis = false, style }:
 }
 
 function CompactInput({ value, onChange, style }: { value: any; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; style?: React.CSSProperties }) { 
-  return <input type="number" step="any" value={value} onChange={onChange} style={style} className="w-[35px] rounded border border-slate-300 px-1 py-0.5 text-right font-mono text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-200 transition-colors bg-white" />; 
+  return <input type="number" step="any" value={value} onChange={onChange} style={style} className="w-[60px] rounded border border-slate-300 px-2 py-0.5 text-right font-mono text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-200 transition-colors bg-white" />; 
 }
