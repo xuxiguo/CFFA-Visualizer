@@ -202,13 +202,13 @@ export default function App() {
         {/* Statements: IS left, BS right */}
         <section className="bg-white shadow rounded-2xl p-4 mb-6">
           <h2 className="font-semibold text-lg mb-4 text-center text-slate-800">Financial Statements</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-2 lg:gap-4">
             {/* Income Statement */}
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200 shadow-sm">
-              <div className="bg-blue-600 text-white px-3 py-1.5 rounded-t-lg">
-                <h3 className="font-bold text-sm text-center">Income Statement</h3>
+              <div className="bg-blue-600 text-white px-2 py-1 rounded-t-lg">
+                <h3 className="font-bold text-xs text-center">Income Statement</h3>
               </div>
-              <div className="p-3 space-y-0.5">
+              <div className="p-2 space-y-0.5">
                 <CompactRow label="Revenue" color={C.revenue} input={<CompactInput value={values.revenue} onChange={update("revenue")} />} />
                 <CompactRow label="− Cost of Goods Sold" color={C.cogs} input={<CompactInput value={values.cogs} onChange={update("cogs")} />} />
                 <CompactRow label="− Depreciation Expense" color={C.dep} input={<CompactInput value={values.depreciation} onChange={update("depreciation")} style={highlight(["DEP→OCF","NCS→CFFA"])} />} />
@@ -224,8 +224,8 @@ export default function App() {
                   <CompactRow label="− Dividends Paid" color={C.dividend} input={<CompactInput value={values.dividends} onChange={update("dividends")} style={highlight(["CFFA→Stockholders"])} />} />
                   <CompactRow label="= Retained Earnings" color={C.retained} value={fmt0(d.RetainedAdd)} emphasis />
                 </div>
-                <div className="mt-1 p-1.5 bg-cyan-50 rounded border border-cyan-200 text-xs">
-                  <div className="font-semibold text-cyan-800">OCF Calculation:</div>
+                <div className="mt-1 p-1 bg-cyan-50 rounded border border-cyan-200 text-xs">
+                  <div className="font-semibold text-cyan-800 text-xs">OCF:</div>
                   <div className="text-cyan-700 font-mono text-xs">
                     {fmt0(d.EBIT)} + {fmt0(d.DEP)} − {fmt0(d.Tax)} = <span className="font-bold" style={{color:C.ocf}}>{fmt0(d.OCF)}</span>
                   </div>
@@ -235,10 +235,10 @@ export default function App() {
 
             {/* Balance Sheet */}
             <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border border-green-200 shadow-sm">
-              <div className="bg-green-600 text-white px-3 py-1.5 rounded-t-lg">
-                <h3 className="font-bold text-sm text-center">Balance Sheet</h3>
+              <div className="bg-green-600 text-white px-2 py-1 rounded-t-lg">
+                <h3 className="font-bold text-xs text-center">Balance Sheet</h3>
               </div>
-              <div className="p-3">
+              <div className="p-2">
                 <div className="grid grid-cols-[2fr,1fr,1fr] gap-1 text-sm">
                   <div className="font-semibold text-green-800"></div>
                   <div className="text-center font-semibold text-green-700 text-xs">Year 1</div>
@@ -393,14 +393,14 @@ function CompactRow({ label, value, input, color, emphasis = false, style }:
   { label: string; value?: string; input?: React.ReactNode; color?: string; emphasis?: boolean; style?: React.CSSProperties }) {
   return (
     <div className={`flex items-center justify-between gap-1 py-0.5 ${emphasis ? 'font-semibold' : ''}`} style={style}>
-      <span className={`text-xs ${emphasis ? "font-bold" : ""}`}>{label}</span>
-      <div className="flex-1 border-b border-dotted border-slate-300 mx-1"></div>
-      {value && <span className={`font-mono text-xs min-w-[60px] text-right ${emphasis ? "font-bold" : ""}`} style={{ color }}>{value}</span>}
-      {input && <div className="min-w-[75px]">{input}</div>}
+      <span className={`text-xs ${emphasis ? "font-bold" : ""} truncate`}>{label}</span>
+      <div className="flex-1 border-b border-dotted border-slate-300 mx-1 min-w-[10px]"></div>
+      {value && <span className={`font-mono text-xs min-w-[50px] text-right ${emphasis ? "font-bold" : ""}`} style={{ color }}>{value}</span>}
+      {input && <div className="min-w-[60px]">{input}</div>}
     </div>
   );
 }
 
 function CompactInput({ value, onChange, style }: { value: any; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; style?: React.CSSProperties }) { 
-  return <input type="number" step="any" value={value} onChange={onChange} style={style} className="w-full rounded border border-slate-300 px-1.5 py-0.5 text-right font-mono text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-200 transition-colors" />; 
+  return <input type="number" step="any" value={value} onChange={onChange} style={style} className="w-full rounded border border-slate-300 px-1 py-0.5 text-right font-mono text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-200 transition-colors" />; 
 }
